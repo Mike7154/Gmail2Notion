@@ -1,0 +1,15 @@
+not_using:
+gmail:
+    task_label: task_inbox
+    note_label: note_inbox
+gdrive:
+    folder_id: 
+notion:
+    token: 
+    task_db: 
+    note_db: 
+    tag: Email
+openai:
+    api: 
+    model: gpt-3.5-turbo
+    use_gpt: false
