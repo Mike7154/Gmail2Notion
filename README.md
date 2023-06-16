@@ -41,6 +41,8 @@ After downloading the credentials, run the provided `quickstart.py` script to ge
 
 The `quickstart.py` script requests Gmail and Google Drive access scopes, goes through the OAuth2 flow, and saves the access token in `token.json` for later use. You will need to authorize the app with a Google account that has access to the emails and the drive you want to process.
 
+Please note that the script requests the following scopes: 'https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/drive', and 'https://www.googleapis.com/auth/gmail.modify'. If you change these scopes in your script, you need to delete the `token.json` file, and a new one will be created with the updated scopes the next time you run your script.
+
 ## Gmail Filter Setup
 
 You can set up a filter in Gmail so that any messages sent to `email_address+note@gmail.com` will be automatically labeled for import into Notion. This way, you can simply forward emails into Notion. To create this filter, follow these steps:
