@@ -71,3 +71,7 @@ Contributions, issues, and feature requests are welcome! For major changes, plea
 ## License
 
 MIT
+
+## Author Information
+
+* **Michael Larsen** - *Initial work* - [Email](mailto:drlarsen215+code@gmail.com)
