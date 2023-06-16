@@ -1,6 +1,6 @@
 # Python Script for Email Processing and Task/Note Creation in Notion
 
-This Python script provides a way to automate task and note creation in Notion based on incoming emails in a Gmail account. It supports Gmail's labels for categorization and can optionally use OpenAI's GPT-3 or GPT-4 for processing email content.
+This Python script provides a way to automate task and note creation in Notion based on incoming emails in a Gmail account. It supports Gmail's labels for categorization and can optionally use OpenAI's GPT-3 or GPT-4 for processing email content. Readme.md generated using GPT-4
 
 ## Dependencies
 
