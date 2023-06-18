@@ -30,10 +30,10 @@ Settings are loaded from a `settings.yml` file using the `mlfiles` module. Requi
 
 - `gmail.task_label`: Gmail label used for tasks.
 - `gmail.note_label`: Gmail label used for notes.
-- `gdrive.folder_id`: Gmail folder id where the emails to be processed are stored.
+- `gdrive.folder_id`: Google drive folder ID where to store attachments to make available in notion.
 - `notion.task_db`: ID of the Notion database where tasks are stored.
 - `notion.note_db`: ID of the Notion database where notes are stored.
-- `openai.use_gpt`: A flag indicating whether to use OpenAI's GPT for processing email content.
+- `openai.use_gpt`: A flag indicating whether to use OpenAI's GPT for processing email content. I personally prefer to use ai blocks in notion instead.
 - `notion.token`: Token for the Notion API.
 
 A `settings_template.yml` file is provided as a starting point. Make a copy of this file, rename it to `settings.yml`, and fill in your details.
@@ -46,8 +46,9 @@ To interact with Gmail and Google Drive, you need to set up OAuth2 credentials. 
 2. Create a new project or select an existing one.
 3. Go to the OAuth consent screen, fill in the necessary details, and save.
 4. Go to Credentials, click "Create Credentials", and choose "OAuth client ID".
-5. Choose "Desktop app" as the application type, name it, and create.
-6. Download the JSON file of your credentials (`credentials.json`).
+5. Choose "Desktop app" as the application type, name it, and create.	
+6. Ensure you allow the scopes for Gmail and Google Drive (see below).
+7. Download the JSON file of your credentials (`credentials.json`).
 
 After downloading the credentials, run the provided `quickstart.py` script to get the access token. This script should be in the same directory as `credentials.json`.
 
@@ -68,7 +69,7 @@ You can set up a filter in Gmail so that any messages sent to `email_address+not
 
 ## How it Works
 
-The script processes unread emails with specified labels, namely `task_label` and `note_label`, from the Gmail folder with the id `folder_id`. These emails are transformed into tasks and notes in Notion. If the `use_gpt` flag is set to True, GPT models are used to process the email content.
+The script processes unread emails with specified labels, namely `task_label` and `note_label`SS. These emails are transformed into tasks and notes in Notion and attachments are linked and saved in the google drive folder. If the `use_gpt` flag is set to True, GPT models are used to process the email content.
 
 For each processed email, a page is created in the specified Notion database with various properties and blocks. Attachments in the email are also appended as blocks.
 
