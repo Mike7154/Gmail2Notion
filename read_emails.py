@@ -74,14 +74,23 @@ def readEmails(label="INBOX"):
 def get_service():
     creds = None
     if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json')
+        try:
+            creds = Credentials.from_authorized_user_file('token.json')
+        except RefreshError:
+            os.remove('token.json')
+            subprocess.call(['python', 'quickstart.py'])
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
+            try:
+                creds.refresh(Request())
+            except RefreshError:
+                os.remove('token.json')
+                subprocess.call(['python', 'quickstart.py'])
+           
         else:
             flow = InstalledAppFlow.from_client_secrets_file(               
                 # your creds file here. Please create json file as here https://cloud.google.com/docs/authentication/getting-started
-                'my_cred_file.json', SCOPES)
+                'credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
         with open('token.json', 'w') as token:
