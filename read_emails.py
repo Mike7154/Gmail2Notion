@@ -12,7 +12,9 @@ import requests
 import re
 from googleapiclient.http import MediaFileUpload
 import mlfiles
-
+import os
+import subprocess
+from google.auth.exceptions import RefreshError
 SCOPES = ['https://www.googleapis.com/auth/gmail.readonly','https://www.googleapis.com/auth/gmail.modify']
 
 def readEmails(label="INBOX"):
@@ -121,7 +123,13 @@ def get_unread_emails_with_label(label_name, folder_id):
     # Set up the Gmail API credentials
     creds = None
     if os.path.exists('token.json'):
-        creds = Credentials.from_authorized_user_file('token.json')
+        try:
+            creds = Credentials.from_authorized_user_file('token.json')
+        except RefreshError:
+            os.remove('token.json')
+            subprocess.call(['python', 'quickstart.py'])
+            creds = Credentials.from_authorized_user_file('token.json')
+
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
