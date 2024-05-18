@@ -6,3 +6,4 @@ google-auth-httplib2
 google-auth-oauthlib
 ruamel.yaml==0.17.21
 cryptography==41.0.0
+markdown
