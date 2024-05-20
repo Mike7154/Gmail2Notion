@@ -11,5 +11,7 @@ notion:
     tag: Email
 openai:
     api: 
-    model: gpt-3.5-turbo
-    use_gpt: false
+    model: gpt-4o
+    use_gpt: true
+    input_cost_per_mil: 5
+    output_cost_per_mil: 15

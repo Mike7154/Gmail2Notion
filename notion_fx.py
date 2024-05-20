@@ -79,7 +79,12 @@ def create_page_from_email(database_id, email, headers, properties, use_gpt=Fals
     body = email['body']
     if use_gpt:
         print("use_gpt is set to True. Using GPT to process email body")
-        body = gpt_fx.process_email(body)
+        gpt_out =  gpt_fx.process_email(body)
+        body = gpt_out['content']
+        cost = gpt_out['cost']
+        cost_block = text_block("AI Cost: $"+str(cost))
+        append_block(page_id, headers, cost_block)
+        
     
     notion_blocks = markdown_to_notion_blocks(body)
     append_blocks_to_notion(page_id, notion_blocks, headers)
