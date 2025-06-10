@@ -69,7 +69,7 @@ You can set up a filter in Gmail so that any messages sent to `email_address+not
 
 ## How it Works
 
-The script processes unread emails with specified labels, namely `task_label` and `note_label`SS. These emails are transformed into tasks and notes in Notion and attachments are linked and saved in the google drive folder. If the `use_gpt` flag is set to True, GPT models are used to process the email content.
+The script processes unread emails with specified labels, namely `task_label` and `note_label`. These emails are transformed into tasks and notes in Notion and attachments are linked and saved in the google drive folder. If the `use_gpt` flag is set to True, GPT models are used to process the email content.
 
 For each processed email, a page is created in the specified Notion database with various properties and blocks. Attachments in the email are also appended as blocks.
 
