@@ -36,8 +36,9 @@ def readEmails(label="INBOX"):
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(               
-                # your creds file here. Please create json file as here https://cloud.google.com/docs/authentication/getting-started
+            flow = InstalledAppFlow.from_client_secrets_file(
+                # your creds file here. Please create json file as here
+                # https://cloud.google.com/docs/authentication/getting-started
                 'my_cred_file.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
@@ -92,8 +93,9 @@ def get_service():
                 subprocess.call(['python', 'quickstart.py'])
            
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(               
-                # your creds file here. Please create json file as here https://cloud.google.com/docs/authentication/getting-started
+            flow = InstalledAppFlow.from_client_secrets_file(
+                # your creds file here. Please create json file as here
+                # https://cloud.google.com/docs/authentication/getting-started
                 'credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
