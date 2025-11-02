@@ -15,7 +15,11 @@ import mlfiles
 import os
 import subprocess
 from google.auth.exceptions import RefreshError
-SCOPES = ['https://www.googleapis.com/auth/gmail.readonly','https://www.googleapis.com/auth/gmail.modify']
+SCOPES = [
+    'https://www.googleapis.com/auth/gmail.readonly',
+    'https://www.googleapis.com/auth/gmail.modify',
+    'https://www.googleapis.com/auth/drive'
+]
 
 def readEmails(label="INBOX"):
     """Shows basic usage of the Gmail API.
@@ -28,12 +32,13 @@ def readEmails(label="INBOX"):
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
     # If there are no (valid) credentials available, let the user log in.
-    if not creds or not creds.valid:
+    if not creds or not creds.valid or not creds.has_scopes(SCOPES):
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(               
-                # your creds file here. Please create json file as here https://cloud.google.com/docs/authentication/getting-started
+            flow = InstalledAppFlow.from_client_secrets_file(
+                # your creds file here. Please create json file as here
+                # https://cloud.google.com/docs/authentication/getting-started
                 'my_cred_file.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
@@ -75,11 +80,11 @@ def get_service():
     creds = None
     if os.path.exists('token.json'):
         try:
-            creds = Credentials.from_authorized_user_file('token.json')
+            creds = Credentials.from_authorized_user_file('token.json', SCOPES)
         except RefreshError:
             os.remove('token.json')
             subprocess.call(['python', 'quickstart.py'])
-    if not creds or not creds.valid:
+    if not creds or not creds.valid or not creds.has_scopes(SCOPES):
         if creds and creds.expired and creds.refresh_token:
             try:
                 creds.refresh(Request())
@@ -88,8 +93,9 @@ def get_service():
                 subprocess.call(['python', 'quickstart.py'])
            
         else:
-            flow = InstalledAppFlow.from_client_secrets_file(               
-                # your creds file here. Please create json file as here https://cloud.google.com/docs/authentication/getting-started
+            flow = InstalledAppFlow.from_client_secrets_file(
+                # your creds file here. Please create json file as here
+                # https://cloud.google.com/docs/authentication/getting-started
                 'credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
@@ -133,18 +139,18 @@ def get_unread_emails_with_label(label_name, folder_id):
     creds = None
     if os.path.exists('token.json'):
         try:
-            creds = Credentials.from_authorized_user_file('token.json')
+            creds = Credentials.from_authorized_user_file('token.json', SCOPES)
         except RefreshError:
             os.remove('token.json')
             subprocess.call(['python', 'quickstart.py'])
-            creds = Credentials.from_authorized_user_file('token.json')
+            creds = Credentials.from_authorized_user_file('token.json', SCOPES)
 
-    if not creds or not creds.valid:
+    if not creds or not creds.valid or not creds.has_scopes(SCOPES):
         if creds and creds.expired and creds.refresh_token:
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/drive'])
+                'credentials.json', SCOPES)
             creds = flow.run_local_server(port=0)
         with open('token.json', 'w') as token:
             token.write(creds.to_json())
